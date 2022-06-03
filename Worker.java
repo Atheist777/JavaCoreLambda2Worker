@@ -17,13 +17,13 @@ public class Worker  {
             try {
 
                 if (i == 33) {
-                    errorCallback.onError("Ошибка значения");
+                    errorCallback.onError();
                 }
 
                 callback.onDone("Task " + i + " is done");
 
             } catch (NullPointerException e) {
-                System.out.println("Ошибка значения");
+                System.out.println("Task " + i + " is error");
             }
         }
         }
