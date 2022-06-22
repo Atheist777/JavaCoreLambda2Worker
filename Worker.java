@@ -1,32 +1,31 @@
-public class Worker  {
+public class Worker implements OnTaskDoneListener, OnTaskErrorListener {
 
     private OnTaskDoneListener callback;
-    private OnTaskErrorListener errorCallback ;
+    private OnTaskErrorListener errorCallback;
 
-
-    public Worker(OnTaskDoneListener callback) {
+    public Worker(OnTaskDoneListener callback, OnTaskErrorListener errorCallback) {
         this.callback = callback;
-    }
-
-    public Worker() {
-
+        this.errorCallback = errorCallback;
     }
 
     public void start() {
         for (int i = 0; i < 100; i++) {
-            try {
-
-                if (i == 33) {
-                    errorCallback.onError();
-                }
-
-                callback.onDone("Task " + i + " is done");
-
-            } catch (NullPointerException e) {
-                System.out.println("Task " + i + " is error");
+            if (i == 33) {
+                errorCallback.onError("Task " + i + " is Error");
+                continue;
             }
-        }
+            callback.onDone("Task " + i + " is Done");
         }
 
     }
 
+    @Override
+    public void onDone(String result) {
+
+    }
+
+    @Override
+    public void onError(String result) {
+
+    }
+}
